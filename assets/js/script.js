@@ -23,29 +23,9 @@ function handleDrop(event, ui) {}
 // Todo: when the page loads, render the task list, add event listeners, make lanes droppable, and make the due date field a date picker
 $(document).ready(function () {});
 
-$(document).ready(function () {
-  // Open the modal when the button is clicked
-  $("#openModalBtn").click(function () {
-    $("#taskModal").show();
-  });
-
-  // Close the modal when the close button is clicked
-  $(".close").click(function () {
-    $("#taskModal").hide();
-  });
-
-  // Handle form submission
-  $("#taskForm").submit(function (event) {
-    event.preventDefault();
-
-    // Get the form data
-    let title = $("#title").val();
-    let description = $("#description").val();
-    let deadline = $("#deadline").val();
-
-    // Add logic to save the task data (e.g., to localStorage or a server)
-
-    // Close the modal
-    $("#taskModal").hide();
+$(function () {
+  $("#datepicker").datepicker({
+    changeMonth: true,
+    changeYear: true,
   });
 });

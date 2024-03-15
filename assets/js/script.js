@@ -120,7 +120,7 @@ function handleAddTask(event) {
   saveTasksToStorage(tasks);
 
   //Print task data back to the screen
-  printTaskData();
+  renderTaskList();
 
   //Clear the form inputs
   $("#taskTitle").val("");
@@ -161,7 +161,7 @@ function handleDrop(event, ui) {
   renderTaskList();
 }
 
-// TODO: when the page loads, render the task list, add event listeners, make lanes droppable, and make the due date field a date picker
+// when the page loads, render the task list, add event listeners, make lanes droppable, and make the due date field a date picker
 $(document).ready(function () {});
 
 taskFormEl.on("submit", handleAddTask);

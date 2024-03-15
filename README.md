@@ -20,3 +20,9 @@ The user can also delete the card at any point.
 JQuery
 Jquery UI
 Bootstrap
+
+## Links
+
+My repo - https://github.com/Stewpra/Task-ListLinks to an external site. 
+
+Live project - https://stewpra.github.io/Task-List/Links to an external site. 

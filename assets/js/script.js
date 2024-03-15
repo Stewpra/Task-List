@@ -16,7 +16,7 @@ function saveTasksToStorage(tasks) {
   localStorage.setItem("tasks", JSON.stringify(tasks));
 }
 
-// TODO: create a function to create a task card
+//function to create a task card
 function createTaskCard(task) {
   const card = $("<div>")
     .addClass("card task-card draggable my-3")
@@ -51,7 +51,7 @@ function createTaskCard(task) {
   return card;
 }
 
-// TODO: create a function to render the task list and make cards draggable
+//function to render the task list and make cards draggable
 function renderTaskList() {
   const tasks = readTasksFromStorage();
 
@@ -94,7 +94,7 @@ function renderTaskList() {
   });
 }
 
-// TODO: create a function to handle adding a new task
+//function to handle adding a new task
 function handleAddTask(event) {
   event.preventDefault();
 
@@ -128,20 +128,58 @@ function handleAddTask(event) {
   $("#datePicker").val("");
 }
 
-// TODO: create a function to handle deleting a task
-function handleDeleteTask(event) {}
+//function to handle deleting a task
+function handleDeleteTask(event) {
+  const taskId = $(this).attr("data-task-id");
+  const tasks = readTasksFromStorage();
 
-// TODO: create a function to handle dropping a task into a new status lane
-function handleDrop(event, ui) {}
+  // Loop through the taskss array and remove the task with the matching id.
+  tasks.forEach((task, index) => {
+    if (task.id === taskId) {
+      tasks.splice(index, 1);
+    }
+  });
+
+  //save the tasks to localStorage
+  saveTasksToStorage(tasks);
+
+  //print tasks back to the screen
+  renderTaskList();
+}
+
+//function to handle dropping a task into a new status lane
+function handleDrop(event, ui) {
+  const tasks = readTasksFromStorage();
+  const taskId = ui.draggable[0].dataset.taskId;
+  const newStatus = event.target.id;
+  for (let task of tasks) {
+    if (task.id === taskId) {
+      task.status = newStatus;
+    }
+  }
+  localStorage.setItem("tasks", JSON.stringify(tasks));
+  renderTaskList();
+}
 
 // TODO: when the page loads, render the task list, add event listeners, make lanes droppable, and make the due date field a date picker
 $(document).ready(function () {});
 
-$(function () {
-  $("#datepicker").datepicker({
-    changeMonth: true,
-    changeYear: true,
+taskFormEl.on("submit", handleAddTask);
+
+$(document).ready(function () {
+  // ? Print project data to the screen on page load if there is any
+  renderTaskList();
+
+  $(function () {
+    $("#datepicker").datepicker({
+      changeMonth: true,
+      changeYear: true,
+    });
+  });
+
+  // ? Make lanes droppable
+  $(".lane").droppable({
+    accept: ".draggable",
+    drop: handleDrop,
   });
 });
-
-taskFormEl.on("submit", handleAddTask);
